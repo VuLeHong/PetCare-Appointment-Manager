@@ -1,12 +1,14 @@
 "use client";
 
-import HomeClient from "@/modules/home";
+import AboutSection from "@/components/home/AboutSection";
+import HeroSection from "@/components/home/HeroSection";
+import ServicesSection from "@/components/home/ServicesSection";
 import { Loader } from "lucide-react";
 import React, { Suspense } from "react";
 
 export default function Home() {
   return (
-    <div className="w-full flex flex-col justify-center items-center">
+    <>
         <Suspense
           fallback={
             <div className="w-full h-125 flex flex-col justify-center items-center">
@@ -14,8 +16,10 @@ export default function Home() {
             </div>
           }
         >
-          <HomeClient />
+          <HeroSection/>
+          <ServicesSection />
+          <AboutSection />
         </Suspense>
-    </div>
+    </>
   );
 }

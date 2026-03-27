@@ -1,5 +1,6 @@
 import { Plus_Jakarta_Sans, Lora } from "next/font/google";
-import "./globals.css";
+import Footer from "@/components/layout/footer";
+import Header from "@/components/layout/header";
 const font = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
 export default function RootLayout({
@@ -8,10 +9,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" suppressHydrationWarning>
-      <body className={font.className} suppressHydrationWarning={true}>
-          {children}
-      </body>
-    </html>
+    <>
+    <Header />
+      <main>{children}</main>
+    <Footer />
+  </>
   );
 }
