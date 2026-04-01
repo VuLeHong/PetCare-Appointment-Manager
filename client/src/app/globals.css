@@ -7,6 +7,7 @@
   :root {
     /* === BRAND === */
     --vc-primary: #0A7B6B;
+    --vc-main:  #02433b;
     --vc-primary-light: #12A090;
     --vc-primary-pale: #E6F4F1;
 
@@ -15,7 +16,7 @@
 
     /* === TEXT === */
     --vc-text-main: #1A2B2A;
-    --vc-text-sub: #4A6260;
+    --vc-text-sub: #beb3b3;
     --vc-text-muted: #8AA8A5;
 
     /* === BACKGROUND === */
@@ -79,6 +80,9 @@
 /* Background */
 .bg-vc-primary {
   background: var(--vc-primary);
+}
+.bg-vc-main {
+  background: var(--vc-main);
 }
 .bg-vc-primary-light {
   background: var(--vc-primary-light);

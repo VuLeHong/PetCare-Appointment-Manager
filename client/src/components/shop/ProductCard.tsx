@@ -1,3 +1,5 @@
+'use client';
+
 import { Product } from '@/types';
 import { useRouter } from 'next/navigation';
 
@@ -7,22 +9,35 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <div
       onClick={() => router.push(`/shop/${product.id}`)}
-      className="bg-white border border-vc rounded-vc overflow-hidden cursor-pointer"
+      className="bg-white border border-vc rounded-2xl overflow-hidden cursor-pointer hover:shadow-md transition"
     >
-      <div className="h-40 bg-vc-primary-pale flex items-center justify-center">
-        🐾
+      {/* IMAGE */}
+      <div className="h-44 bg-vc-primary-pale flex items-center justify-center text-5xl">
+        🥩
       </div>
 
-      <div className="p-4">
-        <div className="text-sm text-vc-muted mb-1">
-          {product.category === 'food' ? 'Thức ăn' : 'Phụ kiện'}
+      {/* CONTENT */}
+      <div className="p-5">
+        {/* TOP ROW */}
+        <div className="flex justify-between items-center mb-3">
+          <span className="bg-vc-primary-pale text-vc-primary text-xs px-3 py-1 rounded-full font-medium">
+            {product.category === 'food' ? 'Thức ăn' : 'Phụ kiện'}
+          </span>
+
+          <span className="text-vc-primary font-bold text-lg">
+            {product.price.toLocaleString('vi-VN')}đ
+          </span>
         </div>
 
-        <h3 className="font-semibold mb-2">{product.name}</h3>
+        {/* NAME */}
+        <h3 className="font-semibold text-vc-main mb-1">
+          {product.name}
+        </h3>
 
-        <div className="text-vc-primary font-bold">
-          {product.price.toLocaleString()}đ
-        </div>
+        {/* SUB INFO */}
+        <p className="text-sm text-vc-muted">
+          {product.brand} · {product.unit}
+        </p>
       </div>
     </div>
   );

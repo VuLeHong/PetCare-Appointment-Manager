@@ -42,70 +42,96 @@ export default function AppointmentForm() {
 
   if (success) {
     return (
-      <div className="text-center py-10">
-        <div className="text-xl font-bold mb-2">
-          Gửi thành công
+      <div className="bg-white border border-vc rounded-2xl p-10 text-center">
+        <div className="text-2xl font-bold mb-3">
+          Đặt lịch thành công!
         </div>
         <p className="text-vc-sub mb-6">
-          Chúng tôi sẽ liên hệ lại sớm.
+          Chúng tôi sẽ gọi điện xác nhận trong vòng 30 phút.
         </p>
 
         <button
           onClick={() => setSuccess(false)}
-          className="bg-vc-primary text-white px-6 py-2 rounded-vc"
+          className="bg-vc-primary text-white px-6 py-3 rounded-vc"
         >
-          Gửi lại
+          Đặt lịch mới
         </button>
       </div>
     );
   }
 
   return (
-    <>
+    <div className="bg-white border border-vc rounded-2xl p-8">
+
+      {/* TITLE */}
+      <h2 className="text-2xl font-bold text-vc-main mb-6">
+        Thông tin đặt lịch
+      </h2>
+
       {/* NAME */}
-      <input
-        placeholder="Họ và tên"
-        value={form.owner_name}
-        onChange={(e) => update('owner_name', e.target.value)}
-        className="w-full border border-vc rounded-vc px-4 py-2 mb-4"
-      />
+      <div className="mb-5">
+        <label className="block text-sm font-medium text-vc-sub mb-2">
+          Họ và tên
+        </label>
+        <input
+          placeholder="Nguyễn Văn A"
+          value={form.owner_name}
+          onChange={(e) => update('owner_name', e.target.value)}
+          className="w-full border border-vc rounded-vc px-4 py-3"
+        />
+      </div>
 
       {/* PHONE */}
-      <input
-        placeholder="Số điện thoại"
-        value={form.phone}
-        onChange={(e) => update('phone', e.target.value)}
-        className="w-full border border-vc rounded-vc px-4 py-2 mb-4"
-      />
+      <div className="mb-5">
+        <label className="block text-sm font-medium text-vc-sub mb-2">
+          Số điện thoại
+        </label>
+        <input
+          placeholder="0912345678"
+          value={form.phone}
+          onChange={(e) => update('phone', e.target.value)}
+          className="w-full border border-vc rounded-vc px-4 py-3"
+        />
+      </div>
 
       {/* PET TYPE */}
-      <select
-        value={form.pet_type}
-        onChange={(e) =>
-          update('pet_type', e.target.value as 'dog' | 'cat')
-        }
-        className="w-full border border-vc rounded-vc px-4 py-2 mb-4"
-      >
-        <option value="dog">Chó</option>
-        <option value="cat">Mèo</option>
-      </select>
+      <div className="mb-5">
+        <label className="block text-sm font-medium text-vc-sub mb-2">
+          Loại thú cưng
+        </label>
+        <select
+          value={form.pet_type}
+          onChange={(e) =>
+            update('pet_type', e.target.value as 'dog' | 'cat')
+          }
+          className="w-full border border-vc rounded-vc px-4 py-3"
+        >
+          <option value="dog">🐕 Chó</option>
+          <option value="cat">🐱 Mèo</option>
+        </select>
+      </div>
 
       {/* SYMPTOMS */}
-      <textarea
-        placeholder="Mô tả triệu chứng"
-        value={form.symptoms}
-        onChange={(e) => update('symptoms', e.target.value)}
-        className="w-full border border-vc rounded-vc px-4 py-2 mb-6"
-      />
+      <div className="mb-6">
+        <label className="block text-sm font-medium text-vc-sub mb-2">
+          Mô tả triệu chứng
+        </label>
+        <textarea
+          placeholder="Thú cưng của bạn đang có triệu chứng gì?..."
+          value={form.symptoms}
+          onChange={(e) => update('symptoms', e.target.value)}
+          className="w-full border border-vc rounded-vc px-4 py-3 h-28 resize-none"
+        />
+      </div>
 
       {/* BUTTON */}
       <button
         onClick={submit}
         disabled={loading}
-        className="w-full bg-vc-primary text-white py-3 rounded-vc"
+        className="w-full bg-vc-primary text-white py-4 rounded-vc font-semibold"
       >
-        {loading ? 'Đang gửi...' : 'Gửi yêu cầu'}
+        {loading ? 'Đang gửi...' : 'Gửi yêu cầu đặt lịch →'}
       </button>
-    </>
+    </div>
   );
 }

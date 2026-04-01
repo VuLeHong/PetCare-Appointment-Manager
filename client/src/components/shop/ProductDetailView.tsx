@@ -12,18 +12,18 @@ export default function ProductDetailView({
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-12">
-      
+
       {/* BREADCRUMB */}
-      <div className="text-sm text-vc-muted mb-6">
+      <div className="text-sm text-vc-muted mb-8">
         <span
-          className="cursor-pointer"
+          className="cursor-pointer hover:text-vc-primary"
           onClick={() => router.push('/')}
         >
           Trang chủ
         </span>
         {' / '}
         <span
-          className="cursor-pointer"
+          className="cursor-pointer hover:text-vc-primary"
           onClick={() => router.push('/shop')}
         >
           Cửa hàng
@@ -34,40 +34,52 @@ export default function ProductDetailView({
         </span>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-10">
-        
+      <div className="grid md:grid-cols-2 gap-12 items-start">
+
         {/* IMAGE */}
-        <div className="bg-vc-primary-pale rounded-vc h-80 flex items-center justify-center">
-          <span className="text-6xl">🐾</span>
+        <div className="bg-vc-primary-pale rounded-2xl h-[420px] flex items-center justify-center text-7xl">
+          🥩
         </div>
 
         {/* INFO */}
         <div>
-          <div className="text-sm text-vc-muted mb-2">
-            {product.category === 'food' ? 'Thức ăn' : 'Phụ kiện'}
-          </div>
 
-          <h1 className="text-3xl font-bold mb-3">
+          {/* CATEGORY */}
+          <span className="inline-block bg-vc-primary-pale text-vc-primary text-xs px-3 py-1 rounded-full mb-4">
+            {product.category === 'food' ? 'Thức ăn' : 'Phụ kiện'}
+          </span>
+
+          {/* NAME */}
+          <h1 className="text-4xl font-bold text-vc-main mb-3">
             {product.name}
           </h1>
 
-          <div className="text-vc-sub mb-4">
-            {product.brand} · {product.unit}
+          {/* BRAND */}
+          <div className="text-vc-sub mb-5">
+            Thương hiệu: <span className="font-bold">{product.brand}</span> · 
+            {' '}Đơn vị: {product.unit}
           </div>
 
-          <div className="text-2xl font-bold text-vc-primary mb-6">
-            {product.price.toLocaleString()}đ
+          {/* PRICE */}
+          <div className="text-3xl font-bold text-vc-primary mb-6">
+            {product.price.toLocaleString('vi-VN')}đ
           </div>
 
-          {/* BUTTON */}
-          <button className="bg-vc-primary text-white px-6 py-3 rounded-vc mb-4">
-            Liên hệ mua
-          </button>
-
-          {/* DESCRIPTION */}
-          <div className="bg-vc-warm p-4 rounded-vc text-vc-sub">
+          {/* DESCRIPTION BOX */}
+          <div className="bg-vc-warm rounded-xl p-5 text-vc-sub leading-relaxed mb-6">
             {product.description}
           </div>
+
+          {/* CTA */}
+          <button className="w-full bg-vc-primary text-white py-4 rounded-xl font-semibold mb-4 hover:opacity-90 transition">
+            📞 0901 234 567 — Liên hệ mua
+          </button>
+
+          {/* NOTE */}
+          <div className="bg-vc-primary-pale text-vc-sub text-sm rounded-xl p-4">
+            💡 Sản phẩm chỉ bán trực tiếp tại phòng khám hoặc qua điện thoại
+          </div>
+
         </div>
       </div>
     </div>

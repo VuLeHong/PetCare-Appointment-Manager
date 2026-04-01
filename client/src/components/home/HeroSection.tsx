@@ -1,64 +1,103 @@
 'use client';
 
+import Link from "next/link";
+
 export default function HeroSection() {
   const now = new Date();
   const hour = now.getHours();
   const isOpen = hour >= 8 && hour < 20;
 
+  const features = [
+    {
+      icon: '🏥',
+      title: 'Cơ sở vật chất hiện đại',
+      desc: 'Máy móc nhập khẩu',
+    },
+    {
+      icon: '👨‍⚕️',
+      title: 'Bác sĩ chuyên nghiệp',
+      desc: '10+ năm kinh nghiệm',
+    },
+    {
+      icon: '💊',
+      title: 'Thuốc chất lượng',
+      desc: 'Đảm bảo nguồn gốc',
+    },
+    {
+      icon: '❤️',
+      title: 'Chăm sóc tận tình',
+      desc: '24/7 hỗ trợ',
+    },
+  ];
+
   return (
-    <section className="bg-linear-to-br from-(--vc-primary) to-(--vc-primary-light) text-white py-20">
-      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-        
+    <section className="bg-linear-to-br from-(--vc-primary) to-(--vc-primary-light) text-white py-24">
+      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+
         {/* LEFT */}
         <div>
           {/* STATUS */}
-          <div className="inline-flex items-center gap-2 bg-white/20 px-4 py-1.5 rounded-full text-sm mb-6">
+          <div className="inline-flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full text-sm mb-6">
             <span
               className={`w-2 h-2 rounded-full ${
-                isOpen ? 'bg-green-400' : 'bg-red-400'
+                isOpen ? 'bg-success' : 'bg-danger'
               }`}
             />
-            {isOpen ? 'Đang mở cửa' : 'Đã đóng cửa'}
+            {isOpen ? 'Đang mở cửa' : 'Đã đóng cửa'} •{' '}
+            {now.toLocaleTimeString('vi-VN', {
+              hour: '2-digit',
+              minute: '2-digit',
+            })}
           </div>
 
           {/* TITLE */}
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-5">
+          <h1 className="text-5xl md:text-6xl font-extrabold leading-[1.15] mb-6">
             Chăm sóc thú cưng
             <br />
-            <span className="text-(--vc-primary-pale)">
+            <span className="text-vc-primary-pale">
               tận tâm & chuyên nghiệp
             </span>
           </h1>
 
           {/* DESC */}
-          <p className="text-white/80 mb-8">
-            Khám, điều trị và chăm sóc thú cưng với quy trình rõ ràng và thiết bị đầy đủ.
+          <p className="text-white/80 text-lg leading-relaxed mb-10 max-w-xl">
+            Đội ngũ bác sĩ thú y giàu kinh nghiệm, trang thiết bị hiện đại.
+            Sức khỏe của thú cưng là ưu tiên hàng đầu của chúng tôi.
           </p>
 
           {/* CTA */}
           <div className="flex gap-4">
-            <button className="bg-vc-accent px-6 py-3 rounded-vc font-semibold">
-              Đặt lịch khám
-            </button>
-            <button className="border border-white/40 px-6 py-3 rounded-vc">
-              Xem cửa hàng
-            </button>
+            <Link key='/shop' href='/shop'>
+              <button className="bg-vc-accent px-6 py-3 rounded-vc font-semibold">
+                📅 Đặt lịch khám
+              </button>
+            </Link>
+            
+            <Link key='/contact' href='/contact'>
+                <button className="border border-vc text-white px-6 py-3 rounded-vc hover:bg-white/10 transition">
+                  🛒 Xem cửa hàng
+                </button>
+            </Link>
+            
           </div>
         </div>
 
         {/* RIGHT */}
-        <div className="grid grid-cols-2 gap-4">
-          {[
-            'Khám tổng quát',
-            'Tiêm vaccine',
-            'Grooming',
-            'Điều trị',
-          ].map((item) => (
+        <div className="grid grid-cols-2 gap-5">
+          {features.map((f, i) => (
             <div
-              key={item}
-              className="bg-white/10 backdrop-blur p-4 rounded-vc"
+              key={i}
+              className="bg-white/10 backdrop-blur-md border border-vc rounded-vc p-5"
             >
-              <div className="font-semibold">{item}</div>
+              <div className="text-xl mb-3">{f.icon}</div>
+
+              <div className="font-semibold text-sm mb-1">
+                {f.title}
+              </div>
+
+              <div className="text-white/80 text-xs">
+                {f.desc}
+              </div>
             </div>
           ))}
         </div>

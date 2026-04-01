@@ -6,38 +6,47 @@ interface Props {
   record: MedicalRecord;
 }
 
-export default function MedicalRecordRow({ record }: Props) {
+export default function MedicalRecordCard({ record }: Props) {
   return (
-    <div className="flex items-center gap-4 p-4 border-b border-vc hover:bg-vc-primary-pale transition">
-      
-      {/* Avatar / icon */}
-      <div className="w-10 h-10 rounded-vc bg-vc-primary-pale flex items-center justify-center text-lg shrink-0">
+    <div className="flex items-center gap-4 bg-white border border-vc rounded-2xl p-4 hover:shadow-sm transition">
+
+      {/* ICON */}
+      <div className="w-12 h-12 rounded-xl bg-vc-primary-pale flex items-center justify-center text-xl shrink-0">
         🐾
       </div>
 
-      {/* Content */}
+      {/* CONTENT */}
       <div className="flex-1">
-        {/* Title */}
-        <div className="flex items-center gap-2">
-          <p className="font-semibold text-vc-main">
-            {record.symptoms}
-          </p>
+
+        {/* TITLE */}
+        <div className="font-semibold text-vc-main">
+          {record.symptoms}
         </div>
 
-        {/* Meta info */}
-        <div className="flex items-center gap-3 text-sm text-vc-muted mt-1">
+        {/* META */}
+        <div className="flex items-center gap-4 text-sm text-vc-sub mt-1">
           <span>📅 {record.visit_date}</span>
           <span>⚖️ {record.weight} kg</span>
         </div>
+
+        {/* NOTE (optional) */}
+        {record.notes && (
+          <div className="text-sm text-vc-muted mt-1 truncate">
+            {record.notes}
+          </div>
+        )}
       </div>
 
-      {/* Actions */}
+      {/* ACTIONS */}
       <div className="flex items-center gap-2">
-        <button className="px-2 py-1 text-xs rounded-vc bg-vc-primary-pale text-vc-primary hover:opacity-80">
+
+        {/* EDIT */}
+        <button className="w-9 h-9 rounded-lg bg-vc-primary-pale flex items-center justify-center hover:opacity-80">
           ✏️
         </button>
 
-        <button className="px-2 py-1 text-xs rounded-vc bg-danger text-white hover:opacity-80">
+        {/* DELETE */}
+        <button className="w-9 h-9 rounded-lg bg-danger flex items-center justify-center text-white hover:opacity-80">
           🗑️
         </button>
       </div>
