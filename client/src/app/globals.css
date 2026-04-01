@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+/* =========================
+   DESIGN TOKENS (VetCare)
+========================= */
+@layer base {
+  :root {
+    /* === BRAND === */
+    --vc-primary: #0A7B6B;
+    --vc-main:  #02433b;
+    --vc-primary-light: #12A090;
+    --vc-primary-pale: #E6F4F1;
+
+    /* === ACCENT === */
+    --vc-accent: #E87B4A;
+
+    /* === TEXT === */
+    --vc-text-main: #1A2B2A;
+    --vc-text-sub: #beb3b3;
+    --vc-text-muted: #8AA8A5;
+
+    /* === BACKGROUND === */
+    --vc-bg-soft: #FAFAF7;
+    --vc-bg-warm: #F5F0E8;
+
+    /* === STATUS === */
+    --vc-success: #27AE60;
+    --vc-danger: #E05252;
+    --vc-warning: #F4A922;
+
+    /* === BORDER === */
+    --vc-border: #D8E8E5;
+
+    /* === RADIUS === */
+    --radius: 0.5rem;
+  }
+
+  /* Dark mode (optional, giữ structure) */
+  .dark {
+    --vc-bg-soft: #1A2B2A;
+    --vc-text-main: #ffffff;
+    --vc-text-sub: #cbd5d1;
+    --vc-border: #2f3f3e;
+  }
+}
+
+/* =========================
+   BASE STYLE
+========================= */
+@layer base {
+  * {
+    border-color: var(--vc-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--vc-bg-soft);
+    color: var(--vc-text-main);
+    font-family: var(--font-jakarta), sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+}
+
+/* =========================
+   UTILITIES (CUSTOM)
+========================= */
+
+/* Background */
+.bg-vc-primary {
+  background: var(--vc-primary);
+}
+.bg-vc-main {
+  background: var(--vc-main);
+}
+.bg-vc-primary-light {
+  background: var(--vc-primary-light);
+}
+.bg-vc-primary-pale {
+  background: var(--vc-primary-pale);
+}
+.bg-vc-accent {
+  background: var(--vc-accent);
+}
+.bg-vc-soft {
+  background: var(--vc-bg-soft);
+}
+.bg-vc-warm {
+  background: var(--vc-bg-warm);
+}
+
+/* Text */
+.text-vc-main {
+  color: var(--vc-text-main);
+}
+.text-vc-sub {
+  color: var(--vc-text-sub);
+}
+.text-vc-muted {
+  color: var(--vc-text-muted);
+}
+.text-vc-primary {
+  color: var(--vc-primary);
+}
+.text-vc-accent {
+  color: var(--vc-accent);
+}
+
+/* Border */
+.border-vc {
+  border-color: var(--vc-border);
+}
+
+/* Status */
+.text-success {
+  color: var(--vc-success);
+}
+.text-danger {
+  color: var(--vc-danger);
+}
+.text-warning {
+  color: var(--vc-warning);
+}
+
+.bg-success {
+  background: var(--vc-success);
+}
+.bg-danger {
+  background: var(--vc-danger);
+}
+.bg-warning {
+  background: var(--vc-warning);
+}
+
+/* Radius */
+.rounded-vc {
+  border-radius: var(--radius);
+}
