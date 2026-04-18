@@ -20,20 +20,38 @@ export const getAll = async (req, res) => {
   }
 };
 
-export const update = async (req, res) => {
+export const updateStatus = async (req, res) => {
   try {
-    const request = await appointmentRequestModel.updateAppointmentRequest(
-      req.params.id,
-      req.body,
-    );
+    const id = Number(req.params.id);
+    const { status } = req.body;
 
-    if (!request) {
-      return res.status(404).json({ message: "Appointment request not found" });
+    if (!Number.isInteger(id)) {
+      return res.status(400).json({ message: "Invalid id" });
     }
 
-    res.json(request);
+    const validStatus = ["pending", "approved", "rejected"];
+    if (!validStatus.includes(status)) {
+      return res.status(400).json({ message: "Invalid status" });
+    }
+
+    const request =
+      await appointmentRequestModel.updateAppointmentRequestStatus(id, status);
+
+    if (!request) {
+      return res.status(404).json({
+        message: "Appointment request not found",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Status updated successfully",
+      data: request,
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({
+      message: "Internal server error",
+      error: error.message,
+    });
   }
 };
 
