@@ -12,6 +12,15 @@ export const create = async (req, res) => {
   }
 };
 
+export const getAll = async (req, res) => {
+  try {
+    const records = await medicalRecordModel.getAllMedicalRecords();
+    res.json(records);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 export const getAllByPet = async (req, res) => {
   try {
     const records = await medicalRecordModel.getMedicalRecordsByPetId(

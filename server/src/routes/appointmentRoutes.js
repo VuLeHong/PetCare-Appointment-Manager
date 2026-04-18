@@ -6,7 +6,7 @@ const router = express.Router({ mergeParams: true });
 
 router.post("/", appointmentRequestController.create);
 router.get("/", authAdmin, appointmentRequestController.getAll);
-router.patch("/:id", authAdmin, appointmentRequestController.update);
+router.patch("/:id/status", authAdmin, appointmentRequestController.updateStatus);
 router.delete("/:id", authAdmin, appointmentRequestController.remove);
 
 export default router;

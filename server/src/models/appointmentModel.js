@@ -21,19 +21,13 @@ export const getAllAppointmentRequests = async () => {
   return result.rows;
 };
 
-export const updateAppointmentRequest = async (id, data) => {
-  const { owner_name, phone, pet_type, symptoms, status } = data;
-
+export const updateAppointmentRequestStatus = async (id, status) => {
   const result = await pool.query(
-    `UPDATE appointment_requests SET
-      owner_name=$1,
-      phone=$2,
-      pet_type=$3,
-      symptoms=$4,
-      status=$5
-    WHERE id=$6
-    RETURNING *`,
-    [owner_name, phone, pet_type, symptoms, status, id],
+    `UPDATE appointment_requests
+     SET status = $1
+     WHERE id = $2
+     RETURNING *`,
+    [status, id],
   );
 
   return result.rows[0];
