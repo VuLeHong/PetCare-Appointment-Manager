@@ -14,6 +14,33 @@ export const createMedicalRecord = async (petId, data) => {
   return result.rows[0];
 };
 
+export const getAllMedicalRecords = async () => {
+  const result = await pool.query(
+    `SELECT 
+        mr.id,
+        mr.visit_date,
+        mr.weight,
+        mr.symptoms,
+        mr.notes,
+
+        p.id AS pet_id,
+        p.name AS pet_name,
+        p.image_url AS pet_image,
+
+        c.id AS customer_id,
+        c.name AS customer_name,
+        c.phone AS customer_phone
+
+     FROM medical_records mr
+     JOIN pets p ON mr.pet_id = p.id
+     JOIN customers c ON p.customer_id = c.id
+
+     ORDER BY mr.id DESC`,
+  );
+
+  return result.rows;
+};
+
 export const getMedicalRecordsByPetId = async (petId) => {
   const result = await pool.query(
     "SELECT * FROM medical_records WHERE pet_id = $1 ORDER BY id DESC",
