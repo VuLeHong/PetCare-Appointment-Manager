@@ -13,30 +13,37 @@ export default function AppointmentCard({ data, onClick }: Props) {
   return (
     <div
       onClick={onClick}
-      className="p-4 border-b border-vc cursor-pointer hover:bg-vc-primary-pale transition"
+      className="px-4 py-3 border-b border-vc cursor-pointer hover:bg-vc-primary-pale transition"
     >
+      {/* Row 1 */}
       <div className="flex justify-between items-center">
         <p className="font-semibold text-vc-main">
           {data.owner_name}
         </p>
 
         <span
-          className={`text-xs px-2 py-1 rounded-vc ${
+          className={`text-xs px-3 py-1 rounded-full font-medium ${
             isPending
-              ? 'bg-warning text-white'
-              : 'bg-success text-white'
+              ? 'bg-yellow-100 text-warning'
+              : 'bg-green-100 text-success'
           }`}
         >
           {isPending ? 'Chờ xử lý' : 'Đã xác nhận'}
         </span>
       </div>
 
-      <p className="text-sm text-vc-muted mt-1">
-        {data.phone}
-      </p>
+      {/* Row 2 */}
+      <div className="flex items-center gap-2 text-sm text-vc-sub mt-1">
+        <span>📞 {data.phone}</span>
+        <span>·</span>
+        <span>
+          {data.pet_type === 'dog' ? '🐶 Chó' : '🐱 Mèo'}
+        </span>
+      </div>
 
-      <p className="text-sm text-vc-muted">
-        {data.pet_type === 'dog' ? 'Chó' : 'Mèo'}
+      {/* Row 3 */}
+      <p className="text-xs text-vc-muted mt-1">
+        {data.created_at?.slice(0, 10)}
       </p>
     </div>
   );

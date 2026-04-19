@@ -11,6 +11,8 @@ import { Pet, MedicalRecord } from '@/types';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import Modal from '@/components/ui/Modal';
 import MedicalRecordRow from '@/components/admin/MedicalRecordRow';
+import PetInfo from '@/components/admin/PetInfo';
+import MedicalRecordList from '@/components/admin/MedicalRecordList';
 
 export default function PetDetailPage() {
   const { id, petId } = useParams<{ id: string; petId: string }>();
@@ -92,44 +94,19 @@ export default function PetDetailPage() {
         ]}
       />
 
-      {/* PET INFO */}
-      <div className="bg-white border border-vc rounded-vc p-6">
-        <h2 className="text-xl font-bold text-vc-main">
-          {pet.name}
-        </h2>
+      <div className="grid grid-cols-3 gap-6">
 
-        <p className="text-vc-muted mt-1">
-          {pet.species} · {pet.weight}kg · {pet.age} tuổi
-        </p>
+      {/* LEFT */}
+      <div className="bg-white border border-vc rounded-2xl p-6">
+        <PetInfo pet={pet} />
       </div>
 
-      {/* RECORD LIST */}
-      <div className="bg-white border border-vc rounded-vc">
-        <div className="flex justify-between items-center p-4 border-b border-vc">
-          <h3 className="font-semibold text-vc-main">
-            📋 Bệnh án
-          </h3>
-
-          <button
-            onClick={() => setShowModal(true)}
-            className="bg-vc-primary text-white px-3 py-1 rounded-vc text-sm"
-          >
-            + Tạo bệnh án
-          </button>
-        </div>
-
-        {records.length === 0 ? (
-          <p className="p-4 text-sm text-vc-muted">
-            Chưa có bệnh án
-          </p>
-        ) : (
-          records.map(r => (
-            <div key={r.id} className="relative group">
-              <MedicalRecordRow record={r} />
-            </div>
-          ))
-        )}
+      {/* RIGHT */}
+      <div className="col-span-2 bg-white border border-vc rounded-2xl overflow-hidden">
+        <MedicalRecordList records={records} />
       </div>
+
+    </div>
 
       {/* MODAL CREATE */}
       {showModal && (

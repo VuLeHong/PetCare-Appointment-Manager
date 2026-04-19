@@ -13,31 +13,33 @@ export default function CustomerRow({ customer }: Props) {
   return (
     <div
       onClick={() => router.push(`/admin/customers/${customer.id}`)}
-      className="flex items-center gap-4 p-4 border-b border-vc cursor-pointer hover:bg-vc-primary-pale"
+      className="grid grid-cols-5 items-center px-4 py-4 border-b border-vc cursor-pointer hover:bg-vc-primary-pale transition"
     >
       {/* Avatar */}
-      <div className="w-10 h-10 rounded-vc bg-vc-primary-pale flex items-center justify-center">
-        👤
+      <div className="text-2xl">👤</div>
+
+      {/* Name */}
+      <div className="font-semibold text-vc-main">
+        {customer.name}
       </div>
 
-      {/* Info */}
-      <div className="flex-1">
-        <p className="font-semibold text-vc-main">
-          {customer.name}
-        </p>
-
-        <p className="text-sm text-vc-muted">
-          {customer.phone}
-        </p>
+      {/* Phone */}
+      <div className="text-vc-sub">
+        {customer.phone}
       </div>
 
-      {/* Pet count */}
-      <div className="text-sm text-vc-muted">
-        {customer.pet_count ?? 0} thú cưng
+      {/* Pet count badge */}
+      <div>
+        <span className="px-3 py-1 text-xs rounded-full bg-vc-primary-pale text-vc-primary font-medium">
+          {customer.pet_count ?? 0} thú cưng
+        </span>
       </div>
 
-      {/* Arrow */}
-      <div className="text-vc-muted">→</div>
+      {/* Date + arrow */}
+      <div className="flex items-center justify-between text-vc-muted">
+        <span>{customer.created_at?.slice(0, 10)}</span>
+        <span>→</span>
+      </div>
     </div>
   );
 }

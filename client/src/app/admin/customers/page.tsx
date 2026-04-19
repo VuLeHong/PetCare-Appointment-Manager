@@ -77,11 +77,21 @@ export default function CustomersPage() {
       />
 
       {/* LIST */}
-      <div className="bg-white border border-vc rounded-vc">
-        {filtered.map(c => (
-          <CustomerRow key={c.id} customer={c} />
-        ))}
+      <div className="bg-white border border-vc rounded-vc overflow-hidden">
+      {/* Header */}
+      <div className="grid grid-cols-5 px-4 py-3 text-sm text-vc-sub font-semibold border-b border-vc">
+        <div></div>
+        <div>Khách hàng</div>
+        <div>Điện thoại</div>
+        <div>Số thú cưng</div>
+        <div>Ngày tạo</div>
       </div>
+
+      {/* Rows */}
+      {filtered.map(c => (
+        <CustomerRow key={c.id} customer={c} />
+      ))}
+    </div>
 
       {/* MODAL */}
       {showModal && (
