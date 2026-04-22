@@ -20,6 +20,7 @@ import {
   Product,
   Pet,
 } from '@/types';
+import ConfirmAppointmentModal from '@/components/admin/ConfirmAppointmentModal';
 
 
 export default function DashboardPage() {
@@ -145,75 +146,13 @@ useEffect(() => {
       </div>
 
       {/* ===== MODAL ===== */}
-      {selected && (
-  <Modal
-    title="Chi tiết yêu cầu đặt lịch"
-    onClose={() => setSelected(null)}
-  >
-    <div className="space-y-4">
-
-      {/* Tên */}
-      <div className="bg-vc-soft rounded-xl p-4">
-        <p className="text-sm text-vc-muted mb-1">👤 Tên khách hàng</p>
-        <p className="font-semibold text-vc-main">
-          {selected.owner_name}
-        </p>
-      </div>
-
-      {/* SĐT */}
-      <div className="bg-vc-soft rounded-xl p-4">
-        <p className="text-sm text-vc-muted mb-1">📞 Điện thoại</p>
-        <p className="font-semibold text-vc-main">
-          {selected.phone}
-        </p>
-      </div>
-
-      {/* Loại thú */}
-      <div className="bg-vc-soft rounded-xl p-4">
-        <p className="text-sm text-vc-muted mb-1">🐾 Loại thú cưng</p>
-        <p className="font-semibold text-vc-main">
-          {selected.pet_type === 'dog' ? 'Chó' : 'Mèo'}
-        </p>
-      </div>
-
-      {/* Ngày */}
-      <div className="bg-vc-soft rounded-xl p-4">
-        <p className="text-sm text-vc-muted mb-1">📅 Ngày gửi</p>
-        <p className="font-semibold text-vc-main">
-          {selected.created_at?.slice(0, 10)}
-        </p>
-      </div>
-
-      {/* Triệu chứng */}
-      <div className="bg-vc-soft rounded-xl p-4">
-        <p className="text-sm text-vc-muted mb-1">🩺 Triệu chứng</p>
-        <p className="text-vc-main">
-          {selected.symptoms}
-        </p>
-      </div>
-
-      {/* Action */}
-      <div className="flex items-center gap-3 pt-2">
-        {selected.status === 'pending' && (
-          <button
-            onClick={() => handleAccept(selected.id)}
-            className="flex-1 bg-vc-primary text-white py-3 rounded-xl font-semibold"
-          >
-            ✔ Xác nhận lịch
-          </button>
-        )}
-
-        <button
-          onClick={() => setSelected(null)}
-          className="flex-1 text-vc-primary font-medium"
-        >
-          Đóng
-        </button>
-      </div>
-
-    </div>
-  </Modal>
-)}
+          {selected && (
+      <ConfirmAppointmentModal
+        data={selected}
+        onClose={() => setSelected(null)}
+        onConfirm={handleAccept}
+      />
+    )}
     </div>
   );
 }

@@ -1,14 +1,18 @@
 'use client';
 
 import { MedicalRecord } from '@/types';
-
+import { useRouter } from 'next/navigation';
 interface Props {
   record: MedicalRecord;
 }
 
 export default function MedicalRecordCard({ record }: Props) {
+  const router = useRouter();
   return (
-    <div className="flex items-center gap-4 bg-white border border-vc rounded-2xl p-4 hover:shadow-sm transition">
+    <div 
+      onClick={() => router.push(`/admin/customers/${record.customer_id}/pets/${record.pet_id}`)}
+      className="flex items-center gap-4 bg-white border border-vc p-4 hover:shadow-sm transition cursor-pointer hover:bg-vc-primary-pale transition"
+    >
 
       {/* ICON */}
       <div className="w-12 h-12 rounded-xl bg-vc-primary-pale flex items-center justify-center text-xl shrink-0">
@@ -35,20 +39,6 @@ export default function MedicalRecordCard({ record }: Props) {
             {record.notes}
           </div>
         )}
-      </div>
-
-      {/* ACTIONS */}
-      <div className="flex items-center gap-2">
-
-        {/* EDIT */}
-        <button className="w-9 h-9 rounded-lg bg-vc-primary-pale flex items-center justify-center hover:opacity-80">
-          ✏️
-        </button>
-
-        {/* DELETE */}
-        <button className="w-9 h-9 rounded-lg bg-danger flex items-center justify-center text-white hover:opacity-80">
-          🗑️
-        </button>
       </div>
     </div>
   );

@@ -2,15 +2,25 @@
 
 import { MedicalRecord } from "@/types";
 
-export default function MedicalRecordList({ records }: { records: MedicalRecord[] }) {
+interface Props {
+  records: MedicalRecord[];
+  onAdd: () => void;
+  onDelete?: (id: number) => void;
+  onEdit?: (record: MedicalRecord) => void;
+}
+
+export default function MedicalRecordList({ records, onAdd, onDelete, onEdit }: Props) {
   return (
     <>
       {/* Header */}
       <div className="flex justify-between items-center px-5 py-4 border-b border-vc">
         <p className="font-semibold text-vc-main">📋 Lịch sử khám</p>
 
-        <button className="bg-vc-primary text-white px-4 py-2 rounded-xl text-sm font-medium">
-          + Thêm bệnh án
+        <button
+            onClick={onAdd}
+            className="bg-vc-primary text-white px-4 py-2 rounded-xl text-sm font-medium"
+        >
+            + Thêm bệnh án
         </button>
       </div>
 
@@ -25,8 +35,18 @@ export default function MedicalRecordList({ records }: { records: MedicalRecord[
             </p>
 
             <div className="flex gap-2">
-              <button className="text-sm text-vc-primary">✏️ Sửa</button>
-              <button className="text-sm text-danger">🗑️</button>
+              <button
+                onClick={() => onEdit?.(r)}
+                className="text-sm text-vc-primary"
+              >
+                ✏️ Sửa
+              </button>
+              <button
+                onClick={() => onDelete?.(r.id)}
+                className="text-sm text-danger"
+              >
+                🗑️
+              </button>
             </div>
           </div>
 

@@ -5,6 +5,7 @@ const MOCK: MedicalRecord[] = [
   {
     id: 1,
     pet_id: 1,
+    customer_id: 1,
     visit_date: '2025-01-01',
     weight: 4,
     symptoms: 'Bỏ ăn',

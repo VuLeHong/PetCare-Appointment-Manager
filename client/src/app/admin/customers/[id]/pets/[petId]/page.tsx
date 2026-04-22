@@ -9,31 +9,25 @@ import { medicalRecordService } from '@/services/medicalRecordService';
 import { Pet, MedicalRecord } from '@/types';
 
 import Breadcrumb from '@/components/ui/Breadcrumb';
-import Modal from '@/components/ui/Modal';
-import MedicalRecordRow from '@/components/admin/MedicalRecordRow';
 import PetInfo from '@/components/admin/PetInfo';
 import MedicalRecordList from '@/components/admin/MedicalRecordList';
+import AddRecordModal from '@/components/admin/AddRecordModal';
+import EditRecordModal from '@/components/admin/EditRecordModal';
 
 export default function PetDetailPage() {
   const { id, petId } = useParams<{ id: string; petId: string }>();
 
   const [pet, setPet] = useState<Pet | null>(null);
   const [records, setRecords] = useState<MedicalRecord[]>([]);
-  const [showModal, setShowModal] = useState(false);
+  const [showAddRecord, setShowAddRecord] = useState(false);
+  const [editingRecord, setEditingRecord] = useState<MedicalRecord | null>(null);
 
-  const [form, setForm] = useState({
-    visit_date: '',
-    weight: '',
-    symptoms: '',
-    notes: '',
-  });
+  const pid = Number(petId);
 
   // =========================
   // LOAD DATA
   // =========================
   const loadData = async () => {
-    const pid = Number(petId);
-
     const petData = await petService.getById(pid);
     setPet(petData);
 
@@ -41,50 +35,33 @@ export default function PetDetailPage() {
     setRecords(recordList);
   };
 
-  useEffect(() => {
-    if (petId) {
-      (async () => {
-        await loadData();
-      })();
-    }
-  }, [petId]);
+useEffect(() => {
+  if (!petId) return;
 
-  // =========================
-  // CREATE RECORD
-  // =========================
-  const handleCreate = async () => {
-    const pid = Number(petId);
+  const fetchData = async () => {
+    const petData = await petService.getById(pid);
+    setPet(petData);
 
-    const newRecord = await medicalRecordService.create(pid, {
-      visit_date: form.visit_date,
-      weight: Number(form.weight),
-      symptoms: form.symptoms,
-      notes: form.notes,
-    });
-
-    setRecords(prev => [newRecord, ...prev]);
-
-    setShowModal(false);
-    setForm({
-      visit_date: '',
-      weight: '',
-      symptoms: '',
-      notes: '',
-    });
+    const recordList = await medicalRecordService.getByPet(pid);
+    setRecords(recordList);
   };
+
+  fetchData();
+}, [petId]);
 
   // =========================
   // DELETE RECORD
   // =========================
-  const handleDelete = async (id: number) => {
-    await medicalRecordService.delete(id);
-    setRecords(prev => prev.filter(r => r.id !== id));
+  const handleDelete = async (recordId: number) => {
+    await medicalRecordService.delete(recordId);
+    setRecords(prev => prev.filter(r => r.id !== recordId));
   };
 
   if (!pet) return null;
 
   return (
     <div className="space-y-6">
+
       {/* BREADCRUMB */}
       <Breadcrumb
         items={[
@@ -94,72 +71,41 @@ export default function PetDetailPage() {
         ]}
       />
 
+      {/* MAIN */}
       <div className="grid grid-cols-3 gap-6">
 
-      {/* LEFT */}
-      <div className="bg-white border border-vc rounded-2xl p-6">
-        <PetInfo pet={pet} />
+        {/* LEFT */}
+        <div className="bg-white border border-vc rounded-2xl p-6">
+          <PetInfo pet={pet} />
+        </div>
+
+        {/* RIGHT */}
+        <div className="col-span-2 bg-white border border-vc rounded-2xl overflow-hidden">
+          <MedicalRecordList
+            records={records}
+            onAdd={() => setShowAddRecord(true)}
+            onDelete={handleDelete}
+            onEdit={(r) => setEditingRecord(r)}
+          />
+        </div>
+
       </div>
 
-      {/* RIGHT */}
-      <div className="col-span-2 bg-white border border-vc rounded-2xl overflow-hidden">
-        <MedicalRecordList records={records} />
-      </div>
+      {/* MODAL đặt ngoài grid */}
+      {showAddRecord && (
+        <AddRecordModal
+          petId={pet.id}
+          onClose={() => setShowAddRecord(false)}
+          onSuccess={loadData} // reload lại records
+        />
+      )}
 
-    </div>
-
-      {/* MODAL CREATE */}
-      {showModal && (
-        <Modal
-          title="Tạo bệnh án"
-          onClose={() => setShowModal(false)}
-        >
-          <div className="space-y-3">
-            <input
-              type="date"
-              value={form.visit_date}
-              onChange={e =>
-                setForm({ ...form, visit_date: e.target.value })
-              }
-              className="w-full border border-vc px-3 py-2 rounded-vc"
-            />
-
-            <input
-              placeholder="Cân nặng (kg)"
-              type="number"
-              value={form.weight}
-              onChange={e =>
-                setForm({ ...form, weight: e.target.value })
-              }
-              className="w-full border border-vc px-3 py-2 rounded-vc"
-            />
-
-            <textarea
-              placeholder="Triệu chứng"
-              value={form.symptoms}
-              onChange={e =>
-                setForm({ ...form, symptoms: e.target.value })
-              }
-              className="w-full border border-vc px-3 py-2 rounded-vc"
-            />
-
-            <textarea
-              placeholder="Ghi chú"
-              value={form.notes}
-              onChange={e =>
-                setForm({ ...form, notes: e.target.value })
-              }
-              className="w-full border border-vc px-3 py-2 rounded-vc"
-            />
-
-            <button
-              onClick={handleCreate}
-              className="w-full bg-vc-primary text-white py-2 rounded-vc"
-            >
-              Lưu bệnh án
-            </button>
-          </div>
-        </Modal>
+      {editingRecord && (
+        <EditRecordModal
+          record={editingRecord}
+          onClose={() => setEditingRecord(null)}
+          onSuccess={loadData} 
+        />
       )}
     </div>
   );

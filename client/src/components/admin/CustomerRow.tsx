@@ -13,7 +13,7 @@ export default function CustomerRow({ customer }: Props) {
   return (
     <div
       onClick={() => router.push(`/admin/customers/${customer.id}`)}
-      className="grid grid-cols-5 items-center px-4 py-4 border-b border-vc cursor-pointer hover:bg-vc-primary-pale transition"
+      className="grid grid-cols-5 items-center px-4 py-4 border-b  cursor-pointer hover:bg-vc-primary-pale transition"
     >
       {/* Avatar */}
       <div className="text-2xl">👤</div>

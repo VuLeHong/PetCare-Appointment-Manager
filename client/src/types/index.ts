@@ -45,6 +45,7 @@ export interface Pet {
 export interface MedicalRecord {
   id: number;
   pet_id: number;
+  customer_id: number;
   visit_date: string;
   weight: number;
   symptoms: string;
