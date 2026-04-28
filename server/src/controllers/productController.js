@@ -2,7 +2,12 @@ import * as productModel from "../models/productModel.js";
 
 export const create = async (req, res) => {
   try {
-    const product = await productModel.createProduct(req.body);
+    const productData = {
+      ...req.body,
+      img_url: req.file ? req.file.location : null,
+    };
+
+    const product = await productModel.createProduct(productData);
     res.status(201).json(product);
   } catch (error) {
     res.status(500).json({ error: error.message });

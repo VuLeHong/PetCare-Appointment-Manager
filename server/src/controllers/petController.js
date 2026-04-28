@@ -2,7 +2,12 @@ import * as petModel from "../models/petModel.js";
 
 export const create = async (req, res) => {
   try {
-    const pet = await petModel.createPet(req.params.id, req.body);
+    const petData = {
+      ...req.body,
+      img_url: req.file ? req.file.location : null,
+    };
+
+    const pet = await petModel.createPet(req.params.id, petData);
     res.status(201).json(pet);
   } catch (error) {
     res.status(500).json({ error: error.message });
