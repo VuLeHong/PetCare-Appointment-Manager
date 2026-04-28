@@ -4,7 +4,7 @@ export const create = async (req, res) => {
   try {
     const productData = {
       ...req.body,
-      img_url: req.file ? req.file.location : null,
+      image_url: req.file ? req.file.location : null,
     };
 
     const product = await productModel.createProduct(productData);
