@@ -4,7 +4,7 @@ export const create = async (req, res) => {
   try {
     const petData = {
       ...req.body,
-      img_url: req.file ? req.file.location : null,
+      image_url: req.file ? req.file.location : null,
     };
 
     const pet = await petModel.createPet(req.params.id, petData);
