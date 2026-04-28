@@ -48,7 +48,15 @@ export const getByCategory = async (req, res) => {
 
 export const update = async (req, res) => {
   try {
-    const product = await productModel.updateProduct(req.params.id, req.body);
+    const productData = {
+      ...req.body,
+      ...(req.file && { image_url: req.file.location }),
+    };
+
+    const product = await productModel.updateProduct(
+      req.params.id,
+      productData,
+    );
 
     if (!product) {
       return res.status(404).json({ message: "Product not found" });

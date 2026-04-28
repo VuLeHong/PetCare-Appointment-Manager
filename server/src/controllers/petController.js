@@ -39,7 +39,12 @@ export const getById = async (req, res) => {
 
 export const update = async (req, res) => {
   try {
-    const pet = await petModel.updatePet(req.params.id, req.body);
+    const petData = {
+      ...req.body,
+      ...(req.file && { image_url: req.file.location }),
+    };
+
+    const pet = await petModel.updatePet(req.params.id, petData);
 
     if (!pet) {
       return res.status(404).json({ message: "Pet not found" });
