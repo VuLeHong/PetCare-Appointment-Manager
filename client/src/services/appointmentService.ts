@@ -18,23 +18,23 @@ export const appointmentService = {
   create: async (
     data: Omit<AppointmentRequest, 'id' | 'status' | 'created_at'>
   ): Promise<AppointmentRequest> => {
-    // const res = await api.post('/appointment-requests', data);
-    // return res.data;
+    const res = await api.post('/appointment-requests', data);
+    return res.data;
 
-    return {
-      ...data,
-      id: Date.now(),
-      status: 'pending',
-      created_at: new Date().toISOString(),
-    };
+    // return {
+    //   ...data,
+    //   id: Date.now(),
+    //   status: 'pending',
+    //   created_at: new Date().toISOString(),
+    // };
   },
 
   // GET /appointment-requests
   getAll: async (): Promise<AppointmentRequest[]> => {
-    // const res = await api.get('/appointment-requests');
-    // return res.data;
+    const res = await api.get('/appointment-requests');
+    return res.data;
 
-    return MOCK;
+    // return MOCK;
   },
 
   // PATCH /appointment-requests/:id
@@ -42,8 +42,6 @@ export const appointmentService = {
     id: number,
     status: 'pending' | 'accepted'
   ): Promise<void> => {
-    // await api.patch(`/appointment-requests/${id}`, { status });
-
-    return;
+    await api.patch(`/appointment-requests/${id}/status`, { status });
   },
 };

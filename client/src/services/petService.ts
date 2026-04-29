@@ -19,31 +19,28 @@ const MOCK: Pet[] = [
 
 export const petService = {
   // GET /admin/pets/:id
-  getById: async (id: number): Promise<Pet> => {
-    return MOCK.find(p => p.id === id)!;
+  getById: async (petId: number, customerId: number): Promise<Pet> => {
+      const res = await api.get(`/customers/${customerId}/pets/${petId}`);
+  return res.data;
   },
 
   // ✅ ADD THIS
-  // GET /admin/customers/:id/pets
-  getByCustomer: async (customerId: number): Promise<Pet[]> => {
-    // const res = await api.get(`/admin/customers/${customerId}/pets`);
-    // return res.data;
+getByCustomer: async (customerId: number): Promise<Pet> => {
+  const res = await api.get(`/customers/${customerId}/pets`);
+  return res.data;
+},
 
-    return MOCK.filter(p => p.customer_id === customerId);
-  },
-
-  // POST /admin/customers/:id/pets
-  create: async (
-    customerId: number,
-    data: Omit<Pet, 'id' | 'customer_id' | 'created_at'>
-  ): Promise<Pet> => {
-    return {
-      ...data,
-      id: Date.now(),
-      customer_id: customerId,
-      created_at: new Date().toISOString(),
-    };
-  },
+create: async (
+  customerId: number,
+  data: Omit<Pet, 'id' | 'customer_id' | 'created_at' | 'image_url'>
+): Promise<Pet> => {
+  console.log('API CREATE CALLED');
+  const res = await api.post(
+    `/customers/${customerId}/pets`,
+    data
+  );
+  return res.data;
+},
 
   // PATCH /admin/pets/:id
   update: async (id: number, data: Partial<Pet>): Promise<Pet> => {

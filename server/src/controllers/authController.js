@@ -6,7 +6,7 @@ export const login = (req, res) => {
 
   if (username === ADMIN.username && password === ADMIN.password) {
     const token = jwt.sign({ role: "admin" }, JWT_SECRET, { expiresIn: "1d" });
-
+    console.log("login")
     return res.json({ token });
   }
 

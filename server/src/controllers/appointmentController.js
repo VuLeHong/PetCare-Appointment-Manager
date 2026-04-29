@@ -5,6 +5,7 @@ export const create = async (req, res) => {
     const request = await appointmentRequestModel.createAppointmentRequest(
       req.body,
     );
+    console.log("create appointment")
     res.status(201).json(request);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -14,6 +15,7 @@ export const create = async (req, res) => {
 export const getAll = async (req, res) => {
   try {
     const requests = await appointmentRequestModel.getAllAppointmentRequests();
+    console.log("get all appointment")
     res.json(requests);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -29,7 +31,7 @@ export const updateStatus = async (req, res) => {
       return res.status(400).json({ message: "Invalid id" });
     }
 
-    const validStatus = ["pending", "approved", "rejected"];
+    const validStatus = ["pending", "accepted"];
     if (!validStatus.includes(status)) {
       return res.status(400).json({ message: "Invalid status" });
     }
@@ -42,7 +44,7 @@ export const updateStatus = async (req, res) => {
         message: "Appointment request not found",
       });
     }
-
+    console.log("update appointment")
     return res.status(200).json({
       message: "Status updated successfully",
       data: request,
@@ -58,6 +60,7 @@ export const updateStatus = async (req, res) => {
 export const remove = async (req, res) => {
   try {
     await appointmentRequestModel.deleteAppointmentRequest(req.params.id);
+    console.log("delete appointment")
     res.json({ message: "Deleted successfully" });
   } catch (error) {
     res.status(500).json({ error: error.message });

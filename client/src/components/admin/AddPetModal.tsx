@@ -2,13 +2,15 @@
 
 import { useState } from 'react';
 import Modal from '../ui/Modal';
+import { petService } from '@/services/petService';
 
 interface Props {
+  customerId: number; 
   onClose: () => void;
   onSuccess?: () => void;
 }
 
-export default function AddPetModal({ onClose, onSuccess }: Props) {
+export default function AddPetModal({ customerId, onClose, onSuccess }: Props) {
   const [form, setForm] = useState({
     name: '',
     species: 'cat',
@@ -23,12 +25,31 @@ export default function AddPetModal({ onClose, onSuccess }: Props) {
     setForm(prev => ({ ...prev, [key]: value }));
   };
 
-  const handleSubmit = () => {
-    // TODO: gọi petService.create()
+const handleSubmit = async () => {
+  try {
+    if (!form.name) {
+      alert('Vui lòng nhập tên thú cưng');
+      return;
+    }
 
+    const newPet = await petService.create(customerId, {
+      name: form.name,
+      species: form.species as 'dog' | 'cat',
+      color: form.color,
+      age: Number(form.age),
+      weight: Number(form.weight),
+      gender: form.gender as 'male' | 'female',
+      notes: form.notes,
+    });
+
+    // notify parent to update list
     if (onSuccess) onSuccess();
+
     onClose();
-  };
+  } catch (error) {
+    console.error('Create pet error:', error);
+  }
+};
 
   return (
     <Modal title="Thêm thú cưng" onClose={onClose}>

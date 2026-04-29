@@ -14,29 +14,32 @@ const MOCK: MedicalRecord[] = [
   },
 ];
 
+export type CreateMedicalRecordDTO = {
+  visit_date: string;
+  weight: number;
+  symptoms: string;
+  notes: string;
+};
+
 export const medicalRecordService = {
   // GET /pets/:id/medical-records
   getByPet: async (petId: number): Promise<MedicalRecord[]> => {
-    // const res = await api.get(`/pets/${petId}/medical-records`);
-    // return res.data;
+    const res = await api.get(`/pets/${petId}/medical-records`);
+    return res.data;
 
-    return MOCK.filter(r => r.pet_id === petId);
+    // return MOCK.filter(r => r.pet_id === petId);
   },
 
   // POST /pets/:id/medical-records
   create: async (
     petId: number,
-    data: Omit<MedicalRecord, 'id' | 'pet_id' | 'created_at'>
-  ): Promise<MedicalRecord> => {
-    // const res = await api.post(`/pets/${petId}/medical-records`, data);
-    // return res.data;
-
-    return {
-      ...data,
-      id: Date.now(),
-      pet_id: petId,
-      created_at: new Date().toISOString(),
-    };
+    data: CreateMedicalRecordDTO
+  ) => {
+    const res = await api.post(
+      `/pets/${petId}/medical-records`,
+      data
+    );
+    return res.data;
   },
 
   // PATCH /medical-records/:id
@@ -44,19 +47,19 @@ export const medicalRecordService = {
     id: number,
     data: Partial<MedicalRecord>
   ): Promise<MedicalRecord> => {
-    // const res = await api.patch(`/medical-records/${id}`, data);
-    // return res.data;
+    const res = await api.patch(`/pets/${id}/medical-records`, data);
+    return res.data;
 
-    return {
-      ...(MOCK.find(r => r.id === id)!),
-      ...data,
-    };
+    // return {
+    //   ...(MOCK.find(r => r.id === id)!),
+    //   ...data,
+    // };
   },
 
   // DELETE /medical-records/:id
   delete: async (id: number): Promise<void> => {
-    // await api.delete(`/medical-records/${id}`);
+    await api.delete(`/pets/${id}/medical-records`);
 
-    return;
+    // return;
   },
 };

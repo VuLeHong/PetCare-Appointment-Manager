@@ -31,7 +31,7 @@ export default function MedicalRecordList({ records, onAdd, onDelete, onEdit }: 
           {/* Top */}
           <div className="flex justify-between items-center mb-3">
             <p className="font-semibold text-vc-main">
-              📅 {r.visit_date}
+              📅 {r.visit_date.slice(0, 10)}
             </p>
 
             <div className="flex gap-2">

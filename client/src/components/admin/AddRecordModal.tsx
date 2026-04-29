@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Modal from '@/components/ui/Modal';
+import { medicalRecordService } from '@/services/medicalRecordService';
 
 interface Props {
   petId: number;
@@ -21,12 +22,26 @@ export default function AddRecordModal({ petId, onClose, onSuccess }: Props) {
     setForm(prev => ({ ...prev, [key]: value }));
   };
 
-  const handleSubmit = async () => {
-    // TODO: call medicalRecordService.create(petId, form)
+const handleSubmit = async () => {
+  try {
+    if (!form.visit_date) {
+      alert('Vui lòng chọn ngày khám');
+      return;
+    }
+
+    await medicalRecordService.create(petId, {
+      visit_date: form.visit_date,
+      weight: Number(form.weight),
+      symptoms: form.symptoms,
+      notes: form.notes,
+    });
 
     if (onSuccess) onSuccess();
     onClose();
-  };
+  } catch (error) {
+    console.error('Create medical record error:', error);
+  }
+};
 
   return (
     <Modal title="Thêm bệnh án" onClose={onClose}>

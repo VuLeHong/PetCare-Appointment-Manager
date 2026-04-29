@@ -18,7 +18,7 @@ export const getAllMedicalRecords = async () => {
   const result = await pool.query(
     `SELECT 
         mr.id,
-        mr.visit_date,
+        mr.visit_date::text AS visit_date,
         mr.weight,
         mr.symptoms,
         mr.notes,
@@ -43,7 +43,7 @@ export const getAllMedicalRecords = async () => {
 
 export const getMedicalRecordsByPetId = async (petId) => {
   const result = await pool.query(
-    "SELECT * FROM medical_records WHERE pet_id = $1 ORDER BY id DESC",
+    "SELECT id, visit_date::text AS visit_date, weight, symptoms, notes FROM medical_records WHERE pet_id = $1 ORDER BY id DESC",
     [petId],
   );
   return result.rows;

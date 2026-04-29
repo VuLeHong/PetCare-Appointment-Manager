@@ -16,41 +16,36 @@ const MOCK: Product[] = [
 
 export const productService = {
   getAll: async (): Promise<Product[]> => {
-    // const res = await api.get('/products');
-    // return res.data;
-    return MOCK;
+    const res = await api.get('/products');
+    return res.data;
+    // return MOCK;
   },
 
   getById: async (id: number): Promise<Product> => {
-    // const res = await api.get(`/products/${id}`);
-    // return res.data;
-    return MOCK.find((p) => p.id === id)!;
+    const res = await api.get(`/products/${id}`);
+    return res.data;
+    // return MOCK.find((p) => p.id === id)!;
   },
 
-    // POST /admin/products
+    // POST /products
   create: async (
     data: Omit<Product, 'id' | 'created_at'>
   ): Promise<Product> => {
-    return {
-      ...data,
-      id: Date.now(),
-      created_at: new Date().toISOString(),
-    };
+    const res = await api.post('/products', data);
+    return res.data;
   },
 
-    // PATCH /admin/products/:id
+    // PATCH /products/:id
   update: async (
     id: number,
     data: Partial<Product>
   ): Promise<Product> => {
-    return {
-      ...(MOCK.find(p => p.id === id)!),
-      ...data,
-    };
+    const res = await api.put(`/products/${id}`, data);
+    return res.data;
   },
 
-  // DELETE /admin/products/:id
+  // DELETE /products/:id
   delete: async (id: number): Promise<void> => {
-    return;
+    await api.delete(`/products/${id}`);
   },
 };

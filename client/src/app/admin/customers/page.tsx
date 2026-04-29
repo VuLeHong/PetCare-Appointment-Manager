@@ -33,19 +33,22 @@ export default function CustomersPage() {
     c.phone.includes(search)
   );
 
-  const handleCreate = () => {
-    const newCustomer: Customer = {
-      id: Date.now(),
+const handleCreate = async () => {
+  try {
+    const newCustomer = await customerService.create({
       name: form.name,
       phone: form.phone,
-      created_at: new Date().toISOString(),
-      pet_count: 0,
-    };
+    });
 
+    // update UI with real data from backend
     setCustomers(prev => [newCustomer, ...prev]);
+
     setShowModal(false);
     setForm({ name: '', phone: '' });
-  };
+  } catch (error) {
+    console.error('Create customer error:', error);
+  }
+};
 
   return (
     <div className="space-y-6">

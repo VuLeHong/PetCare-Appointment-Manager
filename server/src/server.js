@@ -17,10 +17,8 @@ app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/customers", customerRoutes);
 app.use("/customers/:id/pets", petRoutes);
-app.use("/pets", petRoutes);
 app.use("/appointment-requests", appointmentRoutes);
 app.use("/pets/:id/medical-records", medicalRoutes);
-app.use("/medical-records", medicalRoutes);
 app.use("/products", productRoutes);
 app.use("/upload", uploadImageRoutes);
 

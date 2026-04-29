@@ -14,9 +14,16 @@ const MOCK: Customer[] = [
 export const customerService = {
   // GET /customers
   getAll: async (): Promise<Customer[]> => {
-    // const res = await api.get('/customers');
-    // return res.data;
+    const res = await api.get('/customers');
+    return res.data;
 
-    return MOCK;
+    // return MOCK;
+  },
+
+  create: async (
+    data: { name: string; phone: string }
+  ): Promise<Customer> => {
+    const res = await api.post('/customers', data);
+    return res.data;
   },
 };

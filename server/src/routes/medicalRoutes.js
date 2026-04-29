@@ -4,10 +4,10 @@ import authAdmin from "../middleware/authAdmin.js";
 
 const router = express.Router({ mergeParams: true });
 
-router.post("/", authAdmin, medicalRecordController.create);
-router.get("/all", authAdmin, medicalRecordController.getAll);
-router.get("/", authAdmin, medicalRecordController.getAllByPet);
-router.patch("/:id", authAdmin, medicalRecordController.update);
-router.delete("/:id", authAdmin, medicalRecordController.remove);
+router.post("/", authAdmin, medicalRecordController.create); //ok
+router.get("/all", authAdmin, medicalRecordController.getAll); //front not found
+router.get("/", authAdmin, medicalRecordController.getAllByPet); //ok
+router.patch("/", authAdmin, medicalRecordController.update); //ok
+router.delete("/", authAdmin, medicalRecordController.remove); //ok
 
 export default router;

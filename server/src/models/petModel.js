@@ -8,7 +8,7 @@ export const createPet = async (customerId, data) => {
     (customer_id, name, species, color, age, weight, gender, notes, image_url)
     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
     RETURNING *`,
-    [customerId, name, species, color, age, weight, gender, notes, image_url],
+    [customerId, name, species, color, age, weight, gender, notes, image_url || null],
   );
 
   return result.rows[0];

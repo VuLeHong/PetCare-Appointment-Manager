@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Modal from '@/components/ui/Modal';
 import { MedicalRecord } from '@/types';
+import { medicalRecordService } from '@/services/medicalRecordService';
 
 interface Props {
   record: MedicalRecord;
@@ -22,12 +23,21 @@ export default function EditRecordModal({ record, onClose, onSuccess }: Props) {
     setForm(prev => ({ ...prev, [key]: value }));
   };
 
-  const handleSubmit = async () => {
-    // TODO: call medicalRecordService.update(record.id, {...})
+const handleSubmit = async () => {
+  try {
+    await medicalRecordService.update(record.id, {
+      visit_date: form.visit_date,
+      weight: Number(form.weight),
+      symptoms: form.symptoms,
+      notes: form.notes,
+    });
 
     if (onSuccess) onSuccess();
     onClose();
-  };
+  } catch (error) {
+    console.error('Update medical record error:', error);
+  }
+};
 
   return (
     <Modal title="Chỉnh sửa bệnh án" onClose={onClose}>

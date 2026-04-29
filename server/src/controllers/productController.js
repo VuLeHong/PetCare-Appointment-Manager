@@ -17,6 +17,7 @@ export const create = async (req, res) => {
 export const getAll = async (req, res) => {
   try {
     const products = await productModel.getAllProducts();
+    console.log("get all product")
     res.json(products);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -30,7 +31,7 @@ export const getById = async (req, res) => {
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
-
+    console.log("get 1 product")
     res.json(product);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -40,6 +41,7 @@ export const getById = async (req, res) => {
 export const getByCategory = async (req, res) => {
   try {
     const products = await productModel.getByCategory(req.params.category);
+    console.log("get cate product")
     res.json(products);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -61,7 +63,7 @@ export const update = async (req, res) => {
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
-
+    console.log("update product")
     res.json(product);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -71,6 +73,7 @@ export const update = async (req, res) => {
 export const remove = async (req, res) => {
   try {
     await productModel.deleteProduct(req.params.id);
+    console.log("delete product")
     res.json({ message: "Deleted successfully" });
   } catch (error) {
     res.status(500).json({ error: error.message });

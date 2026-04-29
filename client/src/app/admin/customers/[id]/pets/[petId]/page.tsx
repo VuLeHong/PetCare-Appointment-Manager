@@ -23,12 +23,14 @@ export default function PetDetailPage() {
   const [editingRecord, setEditingRecord] = useState<MedicalRecord | null>(null);
 
   const pid = Number(petId);
+  const cid = Number(id);
+
 
   // =========================
   // LOAD DATA
   // =========================
   const loadData = async () => {
-    const petData = await petService.getById(pid);
+    const petData = await petService.getById(pid, cid);
     setPet(petData);
 
     const recordList = await medicalRecordService.getByPet(pid);
@@ -39,10 +41,11 @@ useEffect(() => {
   if (!petId) return;
 
   const fetchData = async () => {
-    const petData = await petService.getById(pid);
+    const petData = await petService.getById(pid, cid);
     setPet(petData);
 
     const recordList = await medicalRecordService.getByPet(pid);
+    console.log("record")
     setRecords(recordList);
   };
 

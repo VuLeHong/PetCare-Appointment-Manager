@@ -3,16 +3,19 @@ import * as customerModel from "../models/customerModel.js";
 export const create = async (req, res) => {
   const { name, phone } = req.body;
   const data = await customerModel.createCustomer(name, phone);
+  console.log("create customer")
   res.json(data);
 };
 
 export const getAll = async (req, res) => {
   const data = await customerModel.getAllCustomers();
+  console.log("get all customer")
   res.json(data);
 };
 
 export const getById = async (req, res) => {
   const data = await customerModel.getCustomerById(req.params.id);
+  console.log("get 1 customer")
   res.json(data);
 };
 

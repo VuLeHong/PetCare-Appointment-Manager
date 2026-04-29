@@ -76,6 +76,7 @@ export default function CustomerDetailPage() {
       {/* MODAL */}
       {showAddPet && (
         <AddPetModal
+          customerId={customer.id}
           onClose={() => setShowAddPet(false)}
           onSuccess={loadPets}
         />
