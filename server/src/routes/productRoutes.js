@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/", authAdmin, upload.single("image"), productController.create);
 router.get("/", productController.getAll);
 router.get("/category/:category", productController.getByCategory);
-router.get("/:id", authAdmin, productController.getById);
+router.get("/:id", productController.getById);
 router.put("/:id", authAdmin, upload.single("image"), productController.update);
 router.delete("/:id", authAdmin, productController.remove);
 
