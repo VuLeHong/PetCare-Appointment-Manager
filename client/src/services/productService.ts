@@ -17,6 +17,7 @@ const MOCK: Product[] = [
 export const productService = {
   getAll: async (): Promise<Product[]> => {
     const res = await api.get('/products');
+    console.log(res)
     return res.data;
     // return MOCK;
   },
@@ -28,21 +29,29 @@ export const productService = {
   },
 
     // POST /products
-  create: async (
-    data: Omit<Product, 'id' | 'created_at'>
-  ): Promise<Product> => {
-    const res = await api.post('/products', data);
-    return res.data;
-  },
+create: async (data: FormData): Promise<Product> => {
+  const res = await api.post('/products', data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  return res.data;
+},
 
     // PATCH /products/:id
-  update: async (
-    id: number,
-    data: Partial<Product>
-  ): Promise<Product> => {
-    const res = await api.put(`/products/${id}`, data);
-    return res.data;
-  },
+update: async (
+  id: number,
+  data: FormData
+): Promise<Product> => {
+  const res = await api.put(`/products/${id}`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  return res.data;
+},
 
   // DELETE /products/:id
   delete: async (id: number): Promise<void> => {

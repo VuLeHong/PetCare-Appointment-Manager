@@ -12,6 +12,8 @@ export default function ProductsPage() {
   const [search, setSearch] = useState('');
   const [selected, setSelected] = useState<Product | null>(null);
   const [showModal, setShowModal] = useState(false);
+const [imageFile, setImageFile] = useState<File | null>(null);
+const [preview, setPreview] = useState('');
 
   const [form, setForm] = useState({
     name: '',
@@ -35,30 +37,41 @@ export default function ProductsPage() {
   );
 
   // CREATE / UPDATE
-  const handleSubmit = async () => {
+const handleSubmit = async () => {
+  try {
+    const formData = new FormData();
+
+    formData.append('name', form.name);
+    formData.append('category', form.category);
+    formData.append('brand', form.brand);
+    formData.append('price', form.price);
+    formData.append('unit', form.unit);
+    formData.append('description', form.description);
+
+    if (imageFile) {
+      formData.append('image', imageFile);
+    }
+
     if (selected) {
-      const updated = await productService.update(selected.id, {
-        ...form,
-        price: Number(form.price),
-        category: form.category as 'food' | 'accessory',
-      });
+      const updated = await productService.update(
+        selected.id,
+        formData
+      );
 
       setProducts(prev =>
         prev.map(p => (p.id === selected.id ? updated : p))
       );
     } else {
-      const newProduct = await productService.create({
-        ...form,
-        price: Number(form.price),
-        category: form.category as 'food' | 'accessory',
-        image_url: '',
-      });
+      const newProduct = await productService.create(formData);
 
       setProducts(prev => [newProduct, ...prev]);
     }
 
     resetForm();
-  };
+  } catch (err) {
+    console.error(err);
+  }
+};
 
   // DELETE
   const handleDelete = async () => {
@@ -169,6 +182,28 @@ export default function ProductsPage() {
               }
               className="w-full border border-vc px-3 py-2 rounded-vc"
             />
+
+            <input
+  type="file"
+  accept="image/*"
+  onChange={(e) => {
+    const file = e.target.files?.[0];
+
+    if (!file) return;
+
+    setImageFile(file);
+    setPreview(URL.createObjectURL(file));
+  }}
+  className="w-full border border-vc px-3 py-2 rounded-vc"
+/>
+
+{preview && (
+  <img
+    src={preview}
+    alt="Preview"
+    className="w-full h-48 object-cover rounded-vc border border-vc"
+  />
+)}
 
             <button
               onClick={handleSubmit}

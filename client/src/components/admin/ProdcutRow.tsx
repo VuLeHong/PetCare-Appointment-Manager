@@ -14,7 +14,13 @@ export default function ProductRow({ product, onClick }: Props) {
       className="flex items-center gap-4 p-4 border-b border-vc cursor-pointer hover:bg-vc-primary-pale"
     >
       <div className="w-12 h-12 bg-vc-primary-pale rounded-vc flex items-center justify-center">
-        🛍️
+        {product.image_url?.trim() && (
+          <img
+            src={product.image_url}
+            alt={product.name}
+            className="w-full h-full object-cover"
+          />
+        )}
       </div>
 
       <div className="flex-1">

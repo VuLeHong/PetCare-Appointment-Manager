@@ -38,7 +38,13 @@ export default function ProductDetailView({
 
         {/* IMAGE */}
         <div className="bg-vc-primary-pale rounded-2xl h-[420px] flex items-center justify-center text-7xl">
-          🥩
+          {product.image_url?.trim() && (
+          <img
+            src={product.image_url}
+            alt={product.name}
+            className="w-full h-full object-cover"
+          />
+        )}
         </div>
 
         {/* INFO */}
