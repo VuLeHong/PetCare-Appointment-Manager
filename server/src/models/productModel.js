@@ -35,7 +35,7 @@ export const updateProduct = async (id, data) => {
       price=$4,
       unit=$5,
       description=$6,
-      image_url=$7
+      image_url = COALESCE($7, image_url)
     WHERE id=$8
     RETURNING *`,
     [name, category, brand, price, unit, description, image_url, id],
