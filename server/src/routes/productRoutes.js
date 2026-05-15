@@ -5,11 +5,11 @@ import upload from "../middleware/uploadImage.js";
 
 const router = express.Router();
 
-router.post("/", authAdmin, upload.single("image"), productController.create);
-router.get("/", productController.getAll);
-router.get("/category/:category", productController.getByCategory);
-router.get("/:id", productController.getById);
-router.put("/:id", authAdmin, upload.single("image"), productController.update);
-router.delete("/:id", authAdmin, productController.remove);
+router.post("/", authAdmin, upload.single("image"), productController.create);//ok
+router.get("/", productController.getAll);//ok
+router.get("/category/:category", productController.getByCategory);//frontend dont use
+router.get("/:id", productController.getById);//ok
+router.put("/:id", authAdmin, upload.single("image"), productController.update);//ok
+router.delete("/:id", authAdmin, productController.remove);//ok
 
 export default router;

@@ -4,10 +4,10 @@ import authAdmin from "../middleware/authAdmin.js";
 
 const router = express.Router();
 
-router.post("/", authAdmin, controller.create); //ok
-router.get("/", authAdmin, controller.getAll); //ok
-router.get("/:id", authAdmin, controller.getById); //front not found
-router.put("/:id", authAdmin, controller.update); //front not found
-router.delete("/:id", authAdmin, controller.remove); //front not found
+router.post("/", authAdmin, controller.create);//ok
+router.get("/", authAdmin, controller.getAll);//ok
+router.get("/:id", authAdmin, controller.getById);//ok
+router.put("/:id", authAdmin, controller.update);////frontend dont use
+router.delete("/:id", authAdmin, controller.remove);////frontend dont use
 
 export default router;

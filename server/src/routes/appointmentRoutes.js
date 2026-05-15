@@ -4,9 +4,9 @@ import authAdmin from "../middleware/authAdmin.js";
 
 const router = express.Router({ mergeParams: true });
 
-router.post("/", appointmentRequestController.create); //ok
+router.post("/", appointmentRequestController.create);//ok
 router.get("/", authAdmin, appointmentRequestController.getAll); //ok
-router.patch("/:id/status", authAdmin, appointmentRequestController.updateStatus); //front not found
-router.delete("/:id", authAdmin, appointmentRequestController.remove); //front not found
+router.patch("/:id/status", authAdmin, appointmentRequestController.updateStatus); //ok
+router.delete("/:id", authAdmin, appointmentRequestController.remove);//frontend dont use
 
 export default router;
